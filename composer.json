@@ -1,0 +1,17 @@
+{
+    "name": "devidw/wp-helper",
+    "description": "Handful helper functions to use inside a WordPress Theme or Plugin.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Devidw\\WordPress\\Helper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David Wolf",
+            "email": "david@wolf.gdn"
+        }
+    ],
+    "require": {}
+}
