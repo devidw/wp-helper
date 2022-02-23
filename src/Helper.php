@@ -31,10 +31,11 @@ class Helper
      * 
      * @param string $filename The name of the file.
      * @param string $binaries The binary data of the image.
+     * @param array $extraArgs The arguments of the attachment.
      * 
      * @return int|null The attachment ID.
      */
-    public static function createAttachmentFromImage(string $filename, string $binaries): ?int
+    public static function createAttachmentFromImage(string $filename, string $binaries, $extraArgs = []): ?int
     {
         $file = wp_upload_bits($filename, null, $binaries);
 
@@ -44,12 +45,13 @@ class Helper
 
         $fileType = wp_check_filetype($file['file'], null);
 
-        $attachment = [
+        $args = [
             'post_mime_type' => $fileType['type'],
-            'post_title' => $filename,
         ];
 
-        $attachmentId = wp_insert_attachment($attachment, $file['file']);
+        $args = array_merge($args, $extraArgs);
+
+        $attachmentId = wp_insert_attachment($args, $file['file']);
 
         if ($attachmentId instanceof WP_Error) {
             return null;
