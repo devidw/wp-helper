@@ -65,4 +65,18 @@ class Helper
 
         return $attachmentId;
     }
+
+    /**
+     * Is current page `wp-login.php`?
+     * 
+     * @see https://wordpress.stackexchange.com/a/237285/218274
+     */
+    public static function isLoginPage(): bool
+    {
+        $abspath = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, ABSPATH);
+
+        return ((in_array($abspath . 'wp-login.php', get_included_files()) || in_array($abspath . 'wp-register.php', get_included_files())) ||
+            (isset($_GLOBALS['pagenow']) && $GLOBALS['pagenow'] === 'wp-login.php') ||
+            $_SERVER['PHP_SELF'] == '/wp-login.php');
+    }
 }
