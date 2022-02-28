@@ -6,11 +6,6 @@ class Helper
 {
     /**
      * Update the version number of a WordPress theme.
-     * 
-     * @param string $version The new theme version.
-     * @param string $theme_dir The directory of the `style.css` file of the theme.
-     * 
-     * @return bool True if the theme was updated, false otherwise.
      */
     public static function updateThemeVersion(string $version, string $theme_dir): bool
     {
@@ -28,12 +23,6 @@ class Helper
      * Image binary data into a WordPress attachment.
      * 
      * @see https://gist.github.com/hissy/7352933
-     * 
-     * @param string $filename The name of the file.
-     * @param string $binaries The binary data of the image.
-     * @param array $extraArgs The arguments of the attachment.
-     * 
-     * @return int|null The attachment ID.
      */
     public static function createAttachmentFromImage(string $filename, string $binaries, $extraArgs = []): ?int
     {
@@ -78,5 +67,13 @@ class Helper
         return ((in_array($abspath . 'wp-login.php', get_included_files()) || in_array($abspath . 'wp-register.php', get_included_files())) ||
             (isset($_GLOBALS['pagenow']) && $GLOBALS['pagenow'] === 'wp-login.php') ||
             $_SERVER['PHP_SELF'] == '/wp-login.php');
+    }
+
+    /**
+     * Get the full URL.
+     */
+    public static function getFullUrl(): string
+    {
+        return home_url() . add_query_arg([]);
     }
 }
