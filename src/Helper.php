@@ -76,4 +76,39 @@ class Helper
     {
         return home_url() . add_query_arg([]);
     }
+
+    /**
+     * Get the ID of the previously visited page.
+     */
+    public static function getRefererPageId(): ?int
+    {
+        $referer = wp_get_referer();
+
+        if (empty($referer)) {
+            if (
+                isset($_SERVER['HTTP_REFERER'])
+                and !empty($_SERVER['HTTP_REFERER'])
+            ) {
+                $referer = $_SERVER['HTTP_REFERER'];
+            } else {
+                return null;
+            }
+        }
+
+        $referer = parse_url($referer);
+
+        if (empty($referer['path'])) {
+            return null;
+        }
+
+        $referer = $referer['path'];
+
+        $page = get_page_by_path($referer);
+
+        if (empty($page)) {
+            return null;
+        }
+
+        return $page->ID;
+    }
 }
