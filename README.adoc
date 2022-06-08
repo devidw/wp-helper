@@ -2,6 +2,15 @@
 
 A collection of helper functions to use inside WordPress.
 
+
+== Installation
+[source,zsh]
+----
+composer require --dev devidw/wp-helper=dev-master
+----
+
+== Usage
+
 [source,php]
 ----
 <?php
